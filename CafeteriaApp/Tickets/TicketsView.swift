@@ -18,44 +18,52 @@ struct TicketsView: View {
         NavigationView {
             VStack (spacing : 40) {
                 TicketsHeaderView(presentationMode: presentationMode)
-            ScrollView {
-         
-                    Text("الشكاوى")
-                        .font(.DinNextArabicBold(size: 30))
-                        .foregroundColor(.appColor(.darkBlue))
-                    VStack {
-                    
-                        if ticketsViewModel.tickets.isEmpty {
-                            Image("EmptyInbox")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 320)
-                        }else {
-                   UserTicketsList(tickets: ticketsViewModel.tickets)
-                        }
-                        Group{
-                            NavigationLink {
-                                
-                       NewTicketView()
-                                
-                            } label: {
-                                Text("إضافة تذكرة جديدة")
-                                    .font(.DinNextArabicBold(size: 17))
-                                    .foregroundColor(.white)
-                                    .frame( maxWidth : .infinity , alignment: .center)
-                                    .padding(.vertical , 14)
-                                    .background( Color("ncgr-blue") )
-                                    .cornerRadius(15)
-                                    .padding(.horizontal ,40)
-                                
+                NCGRScrollView(content: {
+                    VStack{
+                        Text("الشكاوى")
+                            .font(.DinNextArabicBold(size: 30))
+                            .foregroundColor(.appColor(.darkBlue))
+                        VStack {
+                            
+                            if ticketsViewModel.tickets.isEmpty {
+                                Image("EmptyInbox")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 320)
+                            }else {
+                                UserTicketsList(tickets: ticketsViewModel.tickets)
                             }
-                            .padding(.top , 30)
+                            Group{
+                                NavigationLink {
+                                    
+                                    NewTicketView()
+                                    
+                                } label: {
+                                    Text("إضافة تذكرة جديدة")
+                                        .font(.DinNextArabicBold(size: 17))
+                                        .foregroundColor(.white)
+                                        .frame( maxWidth : .infinity , alignment: .center)
+                                        .padding(.vertical , 14)
+                                        .background( Color("ncgr-blue") )
+                                        .cornerRadius(15)
+                                        .padding(.horizontal ,40)
+                                    
+                                }
+                                .padding(.top , 30)
+                            }
+                            
                         }
                         
+                        Spacer()
                     }
                     
-                    Spacer()
-                }
+                    }, onRefresh: {
+                        ticketsViewModel.fetchUserTickets(userId: authviewModel.user.id)
+                        
+                    })
+                
+                
+               
                 
             }
             .ignoresSafeArea()
@@ -103,7 +111,6 @@ struct TicketsHeaderView: View {
                     .scaledToFit()
                     .frame(width: 200)
                 Spacer()
-                refreshButton()
                 Spacer()
                 
             }

@@ -9,19 +9,28 @@ import SwiftUI
 
 struct ItemDeitalisView: View {
     @Binding var itemDitals : [OrderDeital]
-    @Binding var selecteditemDital : OrderDeital
+    @Binding var itemType : ItemType
+    @State var newIteam : OrderDeital = .init(item: .coffee, orderID: "", type: "" , itemID: "", withMilk: false, sugarAmount: 0)
     @Binding var showView : Bool
 
     var extraAddedforType : [String] {
-        return selecteditemDital.item.extraAdded
+        return itemType.extraAdded
     }
+    
+    var getSelectedItemIndex : Int {
+        return itemDitals.firstIndex(where: {$0.item ==  itemType }) ?? -1
+    }
+    var isNewOrder : Bool {
+        return !itemDitals.contains(where: {$0.item == self.itemType})
+    }
+    
     var body: some View {
         ZStack{
         
-            VStack (alignment: .leading, spacing : 25){
+            VStack(alignment: .leading, spacing : 25){
                 HStack {
                     Spacer()
-                    Image(selecteditemDital.item.imgName)
+                    Image(itemType.imgName)
                         .resizable()
                         .scaledToFit()
                     .frame(width: 150)
@@ -30,19 +39,19 @@ struct ItemDeitalisView: View {
                     Text("عدد ملاعق السكر")
                         .modifier(LabelOrderDitailModfire())
                
-                SugarAmountView(sugarAmount: $selecteditemDital.sugarAmount)
+                SugarAmountView(sugarAmount: $newIteam.sugarAmount)
             
 
-                Text("إضافات مع \(selecteditemDital.item.title) : ")
+                Text("إضافات مع \(itemType.title) : ")
                     .modifier(LabelOrderDitailModfire())
                 
-                ListBoolOptionCheck(isChecked: $selecteditemDital.withMilk, option: "حليب")
+                ListBoolOptionCheck(isChecked: $newIteam.withMilk, option: "حليب")
                 
-                Text(" نوع \(selecteditemDital.item.title) : ")
+                Text(" نوع \(newIteam.item.title) : ")
                     .modifier(LabelOrderDitailModfire())
                 HStack {
                     ForEach(extraAddedforType , id : \.self) { option in
-                        ListOptionCheck(selectedOption: $selecteditemDital.type , option: option)
+                        ListOptionCheck(selectedOption: $newIteam.type , option: option)
                     }
                 }
            
@@ -50,6 +59,12 @@ struct ItemDeitalisView: View {
                     HStack{
                         Spacer()
                         Button {
+                            
+                            if itemDitals.contains(where: {$0.item == self.itemType}) {
+                                itemDitals[getSelectedItemIndex] = newIteam
+                            }else {
+                                itemDitals.append(newIteam)
+                            }
                             showView = false
 
                         } label: {
@@ -65,18 +80,21 @@ struct ItemDeitalisView: View {
                         Spacer()
 
                     }
-                    Button {
-                        itemDitals.removeAll(where: {$0.item == selecteditemDital.item })
-                        showView = false
-                    } label: {
-                        Text("حذف الطلب")
-                            .foregroundColor(.white)
-                            .font(.DinNextArabicMedium(size: 14))
-                            .padding(.horizontal , 70)
-                            .padding(.vertical , 8)
-                            .background(Color.red)
-                            .cornerRadius(12)
-
+                    
+                    if !isNewOrder {
+                        Button {
+                            itemDitals.removeAll(where: {$0.item == newIteam.item })
+                            showView = false
+                        } label: {
+                            Text("حذف الطلب")
+                                .foregroundColor(.white)
+                                .font(.DinNextArabicMedium(size: 14))
+                                .padding(.horizontal , 70)
+                                .padding(.vertical , 8)
+                                .background(Color.red)
+                                .cornerRadius(12)
+                            
+                        }
                     }
                 }
                 
@@ -104,12 +122,28 @@ struct ItemDeitalisView: View {
         }
         .frame(maxWidth : .infinity , maxHeight: .infinity)
         .background(Color.black.opacity(0.4))
+        .onAppear {
+            
+            newIteam.item = itemType
+            newIteam.itemID = itemType.apiID
+            
+            if !isNewOrder {
+                newIteam = itemDitals[getSelectedItemIndex]
+            }else {
+                if itemType == .coffee {
+                    newIteam.type = ItemType.coffee.extraAdded[1]
+                }
+            }
+        }
+    
     }
+    
+    
 }
 
 struct ItemDeitalisView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemDeitalisView(itemDitals: .constant([]), selecteditemDital: .constant(.init(item: .coffee, orderID: "492", type: coffeeType.nescafe.rawValue, itemID: "123123", withMilk: true, sugarAmount: 3)), showView: .constant(true))
+        ItemDeitalisView(itemDitals: .constant([]), itemType: .constant(.coffee), showView: .constant(true))
     }
 }
 
@@ -189,6 +223,9 @@ struct  ListOptionCheck: View {
         }
         .onTapGesture {
             selectedOption = option
+        }
+        .onAppear{
+        
         }
     }
 }

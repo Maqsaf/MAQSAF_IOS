@@ -42,6 +42,7 @@ struct LogInView : View {
                     
                     Button {
                         authViewModel.logIn(employeeId: emplyeeId, password: password)
+                            
                     } label: {
                         Text("تسجيل الدخول")
                             .font(.DinNextArabicBold(size: 17))

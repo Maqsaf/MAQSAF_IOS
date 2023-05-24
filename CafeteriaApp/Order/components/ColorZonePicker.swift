@@ -23,7 +23,7 @@ struct ColorZonePicker: View {
                 Spacer()
 
             }
-            HStack (spacing : 15) {
+            HStack (spacing : 13) {
 
                 ForEach(ZoonColor.allCases , id : \.self){ seat in
 
@@ -58,14 +58,14 @@ struct ZoneView: View {
                     .foregroundColor(seat.color)
                     .padding(.top)
             Text(seat.title)
-                .frame(width: 80 , height: 60)
+                .frame(width: 75 , height: 60)
                 .multilineTextAlignment(.center)
                 .font(.DinNextArabicMedium(size: 16))
                 .foregroundColor(.appColor(.darkBlue) )
         }
         .overlay(
             RoundedRectangle(cornerRadius: 12).stroke(style: StrokeStyle(lineWidth: 2))
-                .foregroundColor(selectedZoon == seat ?    seat.color : .appColor(.darkBlue)  )
+                .foregroundColor(selectedZoon == seat ? seat.color : .appColor(.darkBlue))
                 .opacity(0.5)
         )
         .onTapGesture {

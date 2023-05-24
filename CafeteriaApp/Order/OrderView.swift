@@ -14,12 +14,13 @@ struct OrderView: View {
     
     @Binding var showDeitalItem : Bool
     @Binding var selecteditem : ItemType
+
     @Binding var isMapShowing : Bool
     
-    var getSelectedItemIndex : Int
     var isOrderReady : Bool {
         return orderViewModel.order.zoneColor != .none && !orderViewModel.order.items.isEmpty
     }
+    
     
     var body: some View {
 
@@ -36,7 +37,7 @@ struct OrderView: View {
                 Button {
                     
                     orderViewModel.addOrder(userId : authViewModel.user.id)
-                    
+                                                
                 } label: {
                     Text("تأكيد الطلب")
                         .font(.DinNextArabicBold(size: 17))
@@ -56,7 +57,7 @@ struct OrderView: View {
         }
         
         
-  
+        
         
         
     }
@@ -64,7 +65,7 @@ struct OrderView: View {
 }
     struct HomeView_Previews: PreviewProvider {
         static var previews: some View {
-            OrderView(showDeitalItem: .constant(false), selecteditem: .constant(.tea), isMapShowing: .constant(false), getSelectedItemIndex: 1)
+            OrderView(showDeitalItem: .constant(false), selecteditem: .constant(.tea), isMapShowing: .constant(false))
                 .environmentObject(AuthViewModel())
                 .environmentObject(OrderViewModel())
         }

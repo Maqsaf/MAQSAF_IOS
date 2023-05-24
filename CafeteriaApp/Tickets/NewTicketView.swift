@@ -14,9 +14,11 @@ struct NewTicketView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject var  ticketsViewModel : TicketsViewModel
     @EnvironmentObject var  authViewModel : AuthViewModel
-
-    @State var ticketText : String = ""
     
+    @State var ticketText : String = ""
+     var isDefultHidden : Bool {
+        return !ticketText.isEmpty
+    }
 
     var body: some View {
         
@@ -34,21 +36,36 @@ struct NewTicketView: View {
                 
                 VStack {
                     HStack {
-                        Text("وصف المشكلة ")
+                        Text("وصف المشكلة")
                             .font(.DinNextArabicBold(size: 18))
                         .foregroundColor(.appColor(.darkBlue))
                         Spacer()
                     }
                     
+                    
                     TextEditor( text: $ticketText)
-                            .frame(height:  250)
-                            .scrollContentBackground(.hidden)
-                            .background(Color.appColor(.lightGray))
+                            .frame(height:  200)
+                            .foregroundColor(.gray)
                         .cornerRadius(20)
+                        .overlay (
+                            Text("الرجاء إدخال وصف المشكلة")
+                                .font(.DinNextArabicBold(size: 15))
+                                .foregroundColor(.gray.opacity(0.6))
+                                .padding(10)
+                                .hidden(isDefultHidden)
+                            , alignment: .topLeading )
+                        
+                    
                 }
-                .padding(.horizontal , 40)
+                
+                .padding(.horizontal , 30)
+                .padding(.top , 20)
 
+                .padding(.bottom , 30)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(20)
 
+                .padding()
                 Group {
                     Button {
                         

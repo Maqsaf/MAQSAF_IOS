@@ -36,9 +36,10 @@
 		B826E6D129AA231F0087B81A /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B826E6D029AA231F0087B81A /* LogInView.swift */; };
 		B826E6D329AA45A90087B81A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B826E6D229AA45A90087B81A /* HomeView.swift */; };
 		B826E6D529AA6AC60087B81A /* NCGRProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B826E6D429AA6AC60087B81A /* NCGRProgressView.swift */; };
-		B826E6D729AA6AEB0087B81A /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B826E6D629AA6AEB0087B81A /* CustomToastView.swift */; };
 		B826E6DA29AA6B530087B81A /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B826E6D929AA6B530087B81A /* Colors.xcassets */; };
 		B826E6DC29AA6B690087B81A /* NCGRColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B826E6DB29AA6B690087B81A /* NCGRColor.swift */; };
+		B83570AE2A0913A6000F1DFB /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83570AD2A0913A6000F1DFB /* CustomToastView.swift */; };
+		B83570B62A09812C000F1DFB /* mapSwiftui.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83570B52A09812C000F1DFB /* mapSwiftui.swift */; };
 		B83E333829A615970055627B /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = B83E333729A615970055627B /* Supabase */; };
 		B83E333A29A6263D0055627B /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E333929A6263D0055627B /* AuthViewModel.swift */; };
 		B83E333C29A748FA0055627B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E333B29A748FA0055627B /* Constants.swift */; };
@@ -53,6 +54,7 @@
 		B8CBC1F329B3B16A00D9A101 /* TicketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CBC1F229B3B16A00D9A101 /* TicketsView.swift */; };
 		B8D1143929BCAAF0006C7EB4 /* TicketDitailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D1143829BCAAF0006C7EB4 /* TicketDitailView.swift */; };
 		B8EC566429ADE86B000067E9 /* OrderStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC566329ADE86B000067E9 /* OrderStatusView.swift */; };
+		B8FAAADE2A1ABD560021A50A /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FAAADD2A1ABD560021A50A /* SwiftUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,9 +87,10 @@
 		B826E6D029AA231F0087B81A /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		B826E6D229AA45A90087B81A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B826E6D429AA6AC60087B81A /* NCGRProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCGRProgressView.swift; sourceTree = "<group>"; };
-		B826E6D629AA6AEB0087B81A /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		B826E6D929AA6B530087B81A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		B826E6DB29AA6B690087B81A /* NCGRColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCGRColor.swift; sourceTree = "<group>"; };
+		B83570AD2A0913A6000F1DFB /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomToastView.swift; path = ../../../../../.Trash/CustomToastView.swift; sourceTree = "<group>"; };
+		B83570B52A09812C000F1DFB /* mapSwiftui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapSwiftui.swift; sourceTree = "<group>"; };
 		B83E333929A6263D0055627B /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		B83E333B29A748FA0055627B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B83E333D29A77F7D0055627B /* StartTempleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTempleteView.swift; sourceTree = "<group>"; };
@@ -103,6 +106,7 @@
 		B8CBC1F229B3B16A00D9A101 /* TicketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsView.swift; sourceTree = "<group>"; };
 		B8D1143829BCAAF0006C7EB4 /* TicketDitailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDitailView.swift; sourceTree = "<group>"; };
 		B8EC566329ADE86B000067E9 /* OrderStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatusView.swift; sourceTree = "<group>"; };
+		B8FAAADD2A1ABD560021A50A /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,11 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				B826E6A029A8F1E90087B81A /* OrderView.swift */,
-				B8EC566329ADE86B000067E9 /* OrderStatusView.swift */,
-				B80D1CCA29AA9C38007F0B80 /* DoorMapView.swift */,
-				B84AF23329AD11BA008FD50D /* ItemDeitalisView.swift */,
-				B81FA52C29ACD0FF00AEB19B /* OrderTypeView.swift */,
-				B84AF23129ACEEEB008FD50D /* ColorZonePicker.swift */,
+				B8FAAADB2A18DA170021A50A /* components */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -204,7 +204,7 @@
 			children = (
 				B826E6C829A945040087B81A /* CustomTextFiledValidation.swift */,
 				B826E6DB29AA6B690087B81A /* NCGRColor.swift */,
-				B826E6D629AA6AEB0087B81A /* CustomToastView.swift */,
+				B83570AD2A0913A6000F1DFB /* CustomToastView.swift */,
 				B826E6D429AA6AC60087B81A /* NCGRProgressView.swift */,
 				B826E6CE29A973CD0087B81A /* AdaptKeyboard.swift */,
 				B83E333D29A77F7D0055627B /* StartTempleteView.swift */,
@@ -236,6 +236,8 @@
 				B8C8BB1D29A1622500E43CC8 /* CafeteriaAppApp.swift */,
 				B8C8BB1F29A1622500E43CC8 /* ContentView.swift */,
 				B826E6A229A91DB60087B81A /* SplashView.swift */,
+				B8FAAADA2A18D9E80021A50A /* OrderStatus */,
+				B802594E29B480FC0054B69B /* Order */,
 				B8D1143629BB7514006C7EB4 /* Home */,
 				B8CBC1F029B3A31A00D9A101 /* Auth */,
 				B8CBC1EF29B3A2F100D9A101 /* ViewModels */,
@@ -273,8 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				B84A245E29A2A30200A122DB /* AuthView.swift */,
-				B826E6C629A943510087B81A /* SignUpView.swift */,
-				B826E6D029AA231F0087B81A /* LogInView.swift */,
+				B8FAAADC2A18DA330021A50A /* components */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -283,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				B826E6D229AA45A90087B81A /* HomeView.swift */,
-				B802594E29B480FC0054B69B /* Order */,
+				B83570B52A09812C000F1DFB /* mapSwiftui.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -296,6 +297,35 @@
 				B820163129B5CDD00094BE13 /* NewTicketView.swift */,
 			);
 			path = Tickets;
+			sourceTree = "<group>";
+		};
+		B8FAAADA2A18D9E80021A50A /* OrderStatus */ = {
+			isa = PBXGroup;
+			children = (
+				B8EC566329ADE86B000067E9 /* OrderStatusView.swift */,
+				B8FAAADD2A1ABD560021A50A /* SwiftUIView.swift */,
+			);
+			path = OrderStatus;
+			sourceTree = "<group>";
+		};
+		B8FAAADB2A18DA170021A50A /* components */ = {
+			isa = PBXGroup;
+			children = (
+				B80D1CCA29AA9C38007F0B80 /* DoorMapView.swift */,
+				B84AF23329AD11BA008FD50D /* ItemDeitalisView.swift */,
+				B81FA52C29ACD0FF00AEB19B /* OrderTypeView.swift */,
+				B84AF23129ACEEEB008FD50D /* ColorZonePicker.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		B8FAAADC2A18DA330021A50A /* components */ = {
+			isa = PBXGroup;
+			children = (
+				B826E6D029AA231F0087B81A /* LogInView.swift */,
+				B826E6C629A943510087B81A /* SignUpView.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,17 +424,19 @@
 				B826E6B029A91E640087B81A /* TextFieldRequirement.swift in Sources */,
 				B84AF23429AD11BA008FD50D /* ItemDeitalisView.swift in Sources */,
 				B826E6D329AA45A90087B81A /* HomeView.swift in Sources */,
+				B83570B62A09812C000F1DFB /* mapSwiftui.swift in Sources */,
 				B826E6D129AA231F0087B81A /* LogInView.swift in Sources */,
-				B826E6D729AA6AEB0087B81A /* CustomToastView.swift in Sources */,
 				B8CBC1F329B3B16A00D9A101 /* TicketsView.swift in Sources */,
 				B84AF23229ACEEEC008FD50D /* ColorZonePicker.swift in Sources */,
 				B826E6CF29A973CD0087B81A /* AdaptKeyboard.swift in Sources */,
+				B83570AE2A0913A6000F1DFB /* CustomToastView.swift in Sources */,
 				B826E6A129A8F1E90087B81A /* OrderView.swift in Sources */,
 				B826E6C329A925590087B81A /* Font+Extention.swift in Sources */,
 				B83E333A29A6263D0055627B /* AuthViewModel.swift in Sources */,
 				B84A245F29A2A30200A122DB /* AuthView.swift in Sources */,
 				B83E333E29A77F7D0055627B /* StartTempleteView.swift in Sources */,
 				B8D1143929BCAAF0006C7EB4 /* TicketDitailView.swift in Sources */,
+				B8FAAADE2A1ABD560021A50A /* SwiftUIView.swift in Sources */,
 				B81FA52D29ACD0FF00AEB19B /* OrderTypeView.swift in Sources */,
 				B8C8BB2029A1622500E43CC8 /* ContentView.swift in Sources */,
 				B8C8BB1E29A1622500E43CC8 /* CafeteriaAppApp.swift in Sources */,
@@ -543,7 +575,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"CafeteriaApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 89ZB275WFG;
 				ENABLE_PREVIEWS = YES;
@@ -576,7 +608,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"CafeteriaApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 89ZB275WFG;
 				ENABLE_PREVIEWS = YES;

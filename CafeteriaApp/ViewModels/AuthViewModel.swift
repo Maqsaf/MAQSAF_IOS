@@ -158,7 +158,7 @@ class AuthViewModel : ObservableObject {
               DispatchQueue.main.async {
                   self.isloading = false
                   self.error = true
-                  self.errorMessage = "عفوا , يرجى ادخال بياناتك بشكل صحيح"
+                  self.errorMessage = "الرقم الوظيفي او الرقم السري غير صحيح"
 
               }
               

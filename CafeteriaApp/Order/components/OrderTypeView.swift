@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OrderPicker: View {
+    
     @Binding var items : [OrderDeital]
     @Binding var showDeitalItem : Bool
     @Binding var selecteditem : ItemType
@@ -48,7 +49,6 @@ struct OrderTypeView: View {
     @Binding var selecteditem : ItemType
     
     var isSelectedOrder : Bool  {
-        
         selectedOrders.filter({$0.item == orderType}).count == 1
     }
     
@@ -70,14 +70,13 @@ struct OrderTypeView: View {
         )
         .overlay(
             ZStack{
-                
                 if isSelectedOrder {
                     if orderType == .water {
                         
                         Button{
                             selectedOrders.removeAll(where: {$0.item == .water })
                             
-                        }label:  {
+                        }label:{
                             Image(systemName: "xmark.circle.fill")
                                 .imageScale(.large)
                                 .padding(1)
@@ -86,7 +85,6 @@ struct OrderTypeView: View {
                                 .foregroundColor(.red)
                                 .offset(y : -14)
                         }
-                        
                     }else {
                         Button{
                             withAnimation(){
@@ -107,22 +105,20 @@ struct OrderTypeView: View {
             }
             ,alignment: .topLeading
         )
+        
         .onTapGesture {
-            
             if !isSelectedOrder && selectedOrders.count < 2 {
-                
-                selectedOrders.append(OrderDeital(item: orderType, orderID: "", type: "" , itemID: orderType.apiID, withMilk: false, sugarAmount: 0))
-                
                 if orderType != .water {
                     withAnimation(){
                         showDeitalItem = true
                         selecteditem = orderType
                     }
+                }else {
+                    selectedOrders.append( .init(item: .water, orderID: "", type: ItemType.water.title, itemID: ItemType.water.apiID, withMilk: false, sugarAmount: 0))
                 }
             }
         }
         .scaleEffect( isSelectedOrder  ? 1.05 : 1)
-        
         .animation(.easeOut(duration: 1))
     }
 }

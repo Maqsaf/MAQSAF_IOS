@@ -83,7 +83,8 @@ struct UserNameTextFiledValidation: View {
                         .animation(.spring())
 
                     }
-                    
+                    .animation(.easeInOut(duration: 0.7))
+
                     .padding(.leading)
                 }
           
@@ -177,9 +178,8 @@ struct EmployeeIdTextFiledValidation: View {
                             }
                         }
                     }
-
+                    .animation(.easeInOut(duration: 0.7))
                     .padding(.leading)
-                    .animation(.spring())
                 }
           
             }
@@ -218,21 +218,6 @@ struct PasswordTextFiledValidation: View {
         
     
     }
-    
-    
-    
-//    var borderColor : Color {
-//        
-//        
-//        
-//        if (isEditing && isValidEntring) || isValidEntring {
-//           
-//        }else if isEditing && !isValidEntring {
-//            return .red
-//        }else {
-//            return .gray
-//        }
-//    }
     
     var body: some View {
         
@@ -284,7 +269,7 @@ struct PasswordTextFiledValidation: View {
                             }
                         }
                     }
-                    .padding(.bottom , 180)
+                    .padding(.bottom , 40)
                     
                     .padding(.leading)
                 }

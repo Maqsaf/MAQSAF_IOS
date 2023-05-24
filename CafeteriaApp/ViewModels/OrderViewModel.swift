@@ -11,7 +11,7 @@ import SwiftUI
 import Realtime
 enum coffeeType : String  , CaseIterable {
     
-    case  nescafe = "نسكافية"
+    case  nescafe = "نسكافيه"
     case  amircan = "امريكية"
 }
 
@@ -140,6 +140,10 @@ enum  ItemType : String ,  CaseIterable {
             return []
         }
     }
+    
+    static func getTypeByAPIID(_ apiID: String) -> ItemType? {
+            return ItemType.allCases.first { $0.apiID == apiID }
+        }
 }
 
 
@@ -202,39 +206,17 @@ class OrderViewModel : ObservableObject {
     
     
     @Published var isUserHasOrder : Bool = false
+    @Published var isLoading : Bool = false
 
-    
     let client = SupabaseClient(supabaseURL: Constants.api_url , supabaseKey: Constants.api_key )
     
     init(){
         
     }
-
     
-    
-    func fetchUserOrders(userId : String){
-        
-
-        let query2 = client.database
-            .from("Order")
-            .select() // keep it empty for all, else specify returned data
-           .match(query: ["user_id" : userId])
-        Task {
-            do {
-                let response: [Ticket] = try await query2.execute().value
-                print("###  Selected user orders : \(response)")
-                DispatchQueue.main.async {
-                    
-                }
-            } catch {
-                print("### Slecte Tickets Error: \(error)")
-            }
-        }
-        
-    }
 
     func addOrder(userId : String) {
-        
+        isLoading = true
         Task {
             do {
                 
@@ -248,7 +230,6 @@ class OrderViewModel : ObservableObject {
                     do {
                         let response: [OrderEntity] = try await query.execute().value
                         
-                        
                         print("### Returned insert Order  : \(response)")
                         
                         DispatchQueue.main.async {
@@ -257,15 +238,19 @@ class OrderViewModel : ObservableObject {
                             self.order.orderState = OrderState(rawValue: response[0].orderState) ?? .pending
                             self.order.userID = response[0].userID
                             self.addOrderDeitals()
+                            UserDefaults.standard.set("\(self.order.id)", forKey: "OrderID")
+                            self.isLoading = false
+
                         }
-
                         
-
-
                     } catch {
+                        isLoading = false
+
                         print("### Insert Order  Error: \(error.localizedDescription)") }
                 }
             } catch {
+                isLoading = false
+
                 print("### Token Error: \(error.localizedDescription)")
             }
         }
@@ -295,60 +280,134 @@ class OrderViewModel : ObservableObject {
     
     func updateOrderStatus(){
         
+        self.isLoading = true
+
+        let query2 = client.database
+            .from("Order")
+            .select() // keep it empty for all, else specify returned data
+            .match(query: ["order_number" : order.orderNumber])
+        // .single()
         
-                let query2 = client.database
-                            .from("Order")
-                            .select() // keep it empty for all, else specify returned data
-                            .match(query: ["order_number" : order.orderNumber])
-                           // .single()
-        
-                Task {
-                    do {
-                        let response: [OrderEntity] = try await query2.execute().value
-                        print("###  Updated Status Order : \(response)")
-                        
-                        DispatchQueue.main.async {
-                            self.order.orderState = OrderState(rawValue: response[0].orderState) ?? .pending
-                        }
-                    } catch {
-                        print("### Slecte Error: \(error)")
-                    }
+        Task {
+            do {
+                
+                let response: [OrderEntity] = try await query2.execute().value
+                print("###  Updated Status Order : \(response)")
+                
+                DispatchQueue.main.async {
+                    self.order.orderState = OrderState(rawValue: response[0].orderState) ?? .pending
+                    self.isLoading = false
+
                 }
+            } catch {
+                self.isLoading = false
+                print("###  Updated Status Error: \(error)")
+            }
+        }
         
-    }
-    private func addOrderDeitals(){
-        
-        
-        
-        
-        for orderdetial  in order.items {
-                    Task {
-                        do {
-        
-        
-                            let query = client.database
-                                .from("have")
-                                .insert(values:  ["order_id" : self.order.id , "item_id" : orderdetial.itemID , "type" : orderdetial.type , "withMilk" : orderdetial.withMilk.description , "sugar_amount" : orderdetial.sugarAmount.description] ,
-                                        returning: .representation) // you will need to add this to return the added data
-                            //                          .select(columns: "id") // specifiy which column names to be returned. Leave it empty for all columns
-                            //                          .single() // specify you want to return a single value.
-                            Task {
-                                do {
-                                    let response: Any = try await query.execute().value
-                                    print("### Returned insert Order Have  : \(response)")
-                                    DispatchQueue.main.async {
-                                        self.isUserHasOrder = true
-                                    }
-                                } catch {
-                                    print("### Insert Order Have Error: \(error.localizedDescription)") }
-                            }
-                        } catch {
-                            print("### Token Error: \(error.localizedDescription)")
-                        }
-                    }
-        
-                }
     }
     
+    func fetchOrder(orderId : String){
+        self.isLoading = true
+        
+        let query2 = client.database
+            .from("Order")
+            .select() // keep it empty for all, else specify returned data
+            .match(query: ["id" : orderId])
+        // .single()
+        
+        Task {
+            do {
+                let response: [OrderEntity] = try await query2.execute().value
+             //   print("###  Fetch  Order : \(response)")
+                
+                DispatchQueue.main.async {
+                    self.isLoading = false
+
+                    if !response.isEmpty{
+                        
+                        self.order.id = orderId
+                        self.order.orderState = OrderState(rawValue: response[0].orderState) ?? .pending
+                        self.order.userID = response[0].userID
+                        self.order.zoneColor =  ZoonColor(rawValue: response[0].zoneColor ) ?? .none
+                        self.order.orderNumber = response[0].orderNumber
+                        self.fetchOrderDitalis()
+                    }
+                }
+            } catch {
+                self.isLoading = false
+                print("### Order Fetch Error: \(error)")
+            }
+        }
+        
+    }
+    
+   private func fetchOrderDitalis(){
+        
+       self.isLoading = true
+
+        let query2 = client.database
+            .from("have")
+            .select() // keep it empty for all, else specify returned data
+            .match(query: ["order_id" : order.id])
+        // .single()
+        
+        Task {
+            do {
+                let response: [OrderDeitalEntity] = try await query2.execute().value
+             //   print("###  Fetch  Order Ditailes : \(response)")
+                
+
+                DispatchQueue.main.async {
+
+                    self.order.items =   response.map { have in
+                        return OrderDeital(item: ItemType.getTypeByAPIID(have.itemID) ?? .coffee , orderID: have.orderID , type: have.type, itemID: have.itemID, withMilk: have.withMilk, sugarAmount: have.sugarAmount)
+                    }
+                    
+                        self.isUserHasOrder = true
+                        self.isLoading = false
+
+                }
+            } catch {
+                self.isLoading = false
+
+                print("### Fetch Order Ditail Error: \(error)")
+            }
+        }
+        
+    }
+
+
+    
+    private func addOrderDeitals(){
+        
+        for orderdetial  in order.items {
+            
+            
+            Task {
+                do {
+                    let query = client.database
+                        .from("have")
+                        .insert(values:  ["order_id" : self.order.id , "item_id" : orderdetial.itemID , "type" : orderdetial.type , "withMilk" : orderdetial.withMilk.description , "sugar_amount" : orderdetial.sugarAmount.description] ,
+                                returning: .representation) // you will need to add this to return the added data
+                    //                          .select(columns: "id") // specifiy which column names to be returned. Leave it empty for all columns
+                    //                          .single() // specify you want to return a single value.
+                    Task {
+                        do {
+                            let response: Any = try await query.execute().value
+                            print("### Returned insert Order Have  : \(response)")
+                            DispatchQueue.main.async {
+                                self.isUserHasOrder = true
+                            }
+                        } catch {
+                            print("### Insert Order Have Error: \(error.localizedDescription)") }
+                    }
+                } catch {
+                    print("### Token Error: \(error.localizedDescription)")
+                }
+            }
+            
+        }
+    }
     
 }

@@ -17,10 +17,10 @@ struct LogInValidation {
     init (password : String ){
         passwordValidations = [
             Validation(string: password, validationType: TextFieldRequirement.isNotEmpty(filedName: "كلمة المرور"), field: .password),
-            Validation(string: password, validationType: PasswordRequirement.hasLowercasedLetter, field: .password) ,
-            Validation(string: password, validationType: PasswordRequirement.hasUppercasedLetter, field: .password) ,
-            Validation(string: password, validationType: PasswordRequirement.hasOneSpecialCharacters, field: .password) ,
-            Validation(string: password, validationType: PasswordRequirement.hasOneDigit, field: .password),
+//            Validation(string: password, validationType: PasswordRequirement.hasLowercasedLetter, field: .password) ,
+//            Validation(string: password, validationType: PasswordRequirement.hasUppercasedLetter, field: .password) ,
+//            Validation(string: password, validationType: PasswordRequirement.hasOneSpecialCharacters, field: .password) ,
+//            Validation(string: password, validationType: PasswordRequirement.hasOneDigit, field: .password),
             Validation(string: password, validationType: PasswordRequirement.minCharacters(min: 6), field: .password)
             
         ]

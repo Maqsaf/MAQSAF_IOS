@@ -45,7 +45,6 @@ struct SignUpView: View {
                 
                 PasswordTextFiledValidation(text: $password, isValidInfo:  $isValidInfo)
                 
-                
             }
             Button {
                 authViewModel.signUp(employeeId: emplyeeId, password: password, userName: employeeName)
@@ -64,14 +63,11 @@ struct SignUpView: View {
             .frame( maxWidth : .infinity , alignment: .center)
             .padding(.top)
             
-            
         }
-                          
             .padding(.vertical)
                           
         )
     
-        .animation(.easeInOut(duration: 0.7))
             .dismissKeyboard(on: [.drag, .tap])
             .ignoresSafeArea()
         

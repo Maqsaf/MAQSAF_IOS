@@ -27,6 +27,7 @@ struct AuthView: View {
 struct OnBoardingView_Previews: PreviewProvider {
     static var previews: some View {
         AuthView()
+            .environmentObject(AuthViewModel())
     }
 }
 

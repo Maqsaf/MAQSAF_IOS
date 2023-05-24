@@ -56,8 +56,7 @@ class TicketsViewModel : ObservableObject {
         guard !desc.isEmpty else { return }
         Task {
             do {
-                
-                print("//////// user Id : \(userId)")
+                    
                 let query = client.database
                     .from("Ticket")
                     .insert(values:  ["user_id" : userId , "description" : desc ],

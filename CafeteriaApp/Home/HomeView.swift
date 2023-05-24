@@ -16,42 +16,46 @@ struct HomeView: View {
     @State var showTickitsView : Bool = false
     @State var selecteditem : ItemType = .tea
     
-    var getSelectedItemIndex : Int {
-        return orderViewModel.order.items.firstIndex(where: {$0.item ==  selecteditem }) ?? -1
-    }
+//    var getSelectedItemIndex : Int {
+//        return orderViewModel.order.items.firstIndex(where: {$0.item ==  selecteditem }) ?? -1
+//    }
 
     var body: some View {
         
-        ScrollView (showsIndicators: false) {
-            VStack (spacing : 60) {
-                
-                Group{
-                    HomeHeaderView(showTickitsView: $showTickitsView)
-                }
-                Group {
-                    
-                    if orderViewModel.isUserHasOrder {
-                        
-                        OrderStatusView()
-                        
-                    }else {
-                        
-                        OrderView(showDeitalItem: $showDeitalItem, selecteditem: $selecteditem, isMapShowing: $isMapShowing, getSelectedItemIndex: getSelectedItemIndex)
+        VStack{
+            Group{
+                HomeHeaderView(showTickitsView: $showTickitsView)
+            }
+             
+                VStack (spacing : 60) {
+                    Group {
+                        if orderViewModel.isUserHasOrder {
+                            
+                            OrderStatusView()
+                            
+                        }else {
+                            ScrollView (showsIndicators: false) {
+                                
+                                OrderView(showDeitalItem: $showDeitalItem, selecteditem: $selecteditem, isMapShowing: $isMapShowing)
+                            }
+                        }
                     }
                 }
+            
+            .fullScreenCover(isPresented: $showTickitsView , onDismiss: { showTickitsView = false}) {
+                TicketsView(showTickitsView: $showTickitsView)
             }
+            .animation(.easeOut(duration: 0.3))
+            .padding()
+            
         }
-        .fullScreenCover(isPresented: $showTickitsView , onDismiss: { showTickitsView = false}) {
-            TicketsView(showTickitsView: $showTickitsView)
-        }
-        
-        .animation(.easeOut(duration: 0.3))
-        
-        
         .overlay(
             ZStack{
                 if isMapShowing {
                     DoorMapView(isApear: $isMapShowing)
+                }
+                if orderViewModel.isLoading , !orderViewModel.isUserHasOrder {
+                    NCGRProgressView()
                 }
             }
             
@@ -60,7 +64,7 @@ struct HomeView: View {
         .overlay(
             ZStack{
                 if showDeitalItem {
-                    ItemDeitalisView(itemDitals: $orderViewModel.order.items, selecteditemDital: $orderViewModel.order.items[getSelectedItemIndex], showView: $showDeitalItem)
+                    ItemDeitalisView(itemDitals: $orderViewModel.order.items, itemType: $selecteditem, showView: $showDeitalItem)
                 }
             }
             
@@ -73,12 +77,18 @@ struct HomeView: View {
                 .frame(width: 280)
                 .offset(x : 90 , y : 280)
             
+            
         )
         .ignoresSafeArea()
         
         .environmentObject(orderViewModel)
 
-      
+        .onAppear{
+            
+            if let orderId = UserDefaults.standard.string(forKey: "OrderID") {
+                orderViewModel.fetchOrder(orderId: orderId)
+            }
+        }
     }
     
     struct HomeView_Previews: PreviewProvider {
